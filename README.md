@@ -8,113 +8,57 @@ Created by [@asantos00](https://github.com/asantos00) (Alexandre Santos).
 
 ## Install
 
-The recommended path installs both the `worten-pp-cli` binary and the `pp-worten` agent skill (Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot, and other agents supported by the upstream [`skills`](https://github.com/vercel-labs/skills) CLI) in one shot:
+Install from source today:
 
 ```bash
-npx -y @mvanhorn/printing-press-library install worten
+go install github.com/emmassist-co/worten-pp-cli/cmd/worten-pp-cli@latest
 ```
 
-For CLI only (no skill):
+For `housebuy`, either keep `worten-pp-cli` on `PATH` or point the workflow wrapper at it directly:
 
 ```bash
-npx -y @mvanhorn/printing-press-library install worten --cli-only
+export WORTEN_PP_BIN=/absolute/path/to/worten-pp-cli
 ```
 
-For skill only — installs the skill into the same agents as the default command above, but skips the CLI binary (use this to update or reinstall just the skill):
+To preserve `housebuy`'s existing repo-local cache and snapshot files while using this binary:
 
 ```bash
-npx -y @mvanhorn/printing-press-library install worten --skill-only
+export WORTEN_PP_SNAPSHOT_DIR=/path/to/housebuy/data/worten-snapshots
+export WORTEN_PP_ID_CACHE_PATH=/path/to/housebuy/evals/worten-id-cache.json
 ```
 
-To constrain the skill install to one or more specific agents (repeatable — agent names match the [`skills`](https://github.com/vercel-labs/skills) CLI):
+## Current Boundary
 
-```bash
-npx -y @mvanhorn/printing-press-library install worten --agent claude-code
-npx -y @mvanhorn/printing-press-library install worten --agent claude-code --agent codex
-```
+This binary is now the intended source of truth for Worten retailer behavior:
 
-### Without Node
+- `resolve`
+- `product`
+- `buyer`
+- `stock`
+- `specs`
+- `suggest`
+- `search`
+- `snapshot`
 
-The generated install path is category-agnostic until this CLI is published. If `npx` is not available before publish, install Node or use the category-specific Go fallback from the public-library entry after publish.
-
-### Pre-built binary
-
-Download a pre-built binary for your platform from the [latest release](https://github.com/mvanhorn/printing-press-library/releases/tag/worten-current). On macOS, clear the Gatekeeper quarantine: `xattr -d com.apple.quarantine <binary>`. On Unix, mark it executable: `chmod +x <binary>`.
-
-<!-- pp-hermes-install-anchor -->
-## Install for Hermes
-
-From the Hermes CLI:
-
-```bash
-hermes skills install mvanhorn/printing-press-library/cli-skills/pp-worten --force
-```
-
-Inside a Hermes chat session:
-
-```bash
-/skills install mvanhorn/printing-press-library/cli-skills/pp-worten --force
-```
-
-## Install for OpenClaw
-
-Tell your OpenClaw agent (copy this):
-
-```
-Install the pp-worten skill from https://github.com/mvanhorn/printing-press-library/tree/main/cli-skills/pp-worten. The skill defines how its required CLI can be installed.
-```
-
-## Use with Claude Desktop
-
-This CLI ships an [MCPB](https://github.com/modelcontextprotocol/mcpb) bundle — Claude Desktop's standard format for one-click MCP extension installs (no JSON config required).
-
-To install:
-
-1. Download the `.mcpb` for your platform from the [latest release](https://github.com/mvanhorn/printing-press-library/releases/tag/worten-current).
-2. Double-click the `.mcpb` file. Claude Desktop opens and walks you through the install.
-
-Requires Claude Desktop 1.0.0 or later. Pre-built bundles ship for macOS Apple Silicon (`darwin-arm64`) and Windows (`amd64`, `arm64`); for other platforms, use the manual config below.
-
-<details>
-<summary>Manual JSON config (advanced)</summary>
-
-If you can't use the MCPB bundle (older Claude Desktop, unsupported platform), install the MCP binary and configure it manually.
-
-
-Install the MCP binary from this CLI's published public-library entry or pre-built release.
-
-Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_desktop_config.json`):
-
-```json
-{
-  "mcpServers": {
-    "worten": {
-      "command": "worten-pp-mcp"
-    }
-  }
-}
-```
-
-</details>
+The generated `worten-api` subtree remains available as the raw endpoint layer, but `housebuy` should consume the normalized commands above.
 
 ## Quick Start
 
-### 1. Install
-
-See [Install](#install) above.
-
-### 2. Verify Setup
+### 1. Verify Setup
 
 ```bash
 worten-pp-cli doctor
 ```
 
-This checks your configuration.
+This checks the base configuration and connectivity assumptions.
 
-### 3. Try Your First Command
+### 2. Try the normalized commands
 
 ```bash
-worten-pp-cli worten-api get-offer-stock --offer-id 550e8400-e29b-41d4-a716-446655440000 --search-query example-value --radius 42
+worten-pp-cli resolve https://www.worten.pt/produtos/example
+worten-pp-cli product https://www.worten.pt/produtos/example
+worten-pp-cli buyer https://www.worten.pt/produtos/example
+worten-pp-cli snapshot https://www.worten.pt/produtos/example --refresh
 ```
 
 ## Usage
@@ -122,6 +66,17 @@ worten-pp-cli worten-api get-offer-stock --offer-id 550e8400-e29b-41d4-a716-4466
 Run `worten-pp-cli --help` for the full command reference and flag list.
 
 ## Commands
+
+### normalized
+
+- **`worten-pp-cli resolve`** - Resolve a Worten product URL or slug to a canonical product identifier.
+- **`worten-pp-cli product`** - Fetch the normalized retailer view for a product.
+- **`worten-pp-cli buyer`** - Fetch the normalized buyer view used by `housebuy`.
+- **`worten-pp-cli stock`** - Fetch normalized stock, shipping, seller, and optional nearby-store context.
+- **`worten-pp-cli specs`** - Fetch Worten technical specifications with a stable wrapper shape.
+- **`worten-pp-cli suggest`** - Fetch normalized search suggestions.
+- **`worten-pp-cli search`** - Search Worten products with explicit contexts.
+- **`worten-pp-cli snapshot`** - Persist and return normalized snapshot payloads.
 
 ### worten-api
 

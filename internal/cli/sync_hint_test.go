@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/spf13/cobra"
-	"worten-pp-cli/internal/store"
+	"github.com/emmassist-co/worten-pp-cli/internal/store"
 )
 
 func newSyncHintTestStore(t *testing.T) *store.Store {

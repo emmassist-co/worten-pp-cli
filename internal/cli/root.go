@@ -13,8 +13,8 @@ import (
 	"time"
 
 	"github.com/spf13/cobra"
-	"worten-pp-cli/internal/client"
-	"worten-pp-cli/internal/config"
+	"github.com/emmassist-co/worten-pp-cli/internal/client"
+	"github.com/emmassist-co/worten-pp-cli/internal/config"
 )
 
 var version = "1.0.0"
@@ -239,6 +239,14 @@ Run 'worten-pp-cli doctor' to verify auth and connectivity.`,
 	rootCmd.AddCommand(newImportCmd(flags))
 	rootCmd.AddCommand(newSyncCmd(flags))
 	rootCmd.AddCommand(newWorkflowCmd(flags))
+	rootCmd.AddCommand(newWortenResolveCmd(flags))
+	rootCmd.AddCommand(newWortenProductCmd(flags))
+	rootCmd.AddCommand(newWortenBuyerCmd(flags))
+	rootCmd.AddCommand(newWortenSpecsCmd(flags))
+	rootCmd.AddCommand(newWortenStockCmd(flags))
+	rootCmd.AddCommand(newWortenSuggestCmd(flags))
+	rootCmd.AddCommand(newWortenSearchCmd(flags))
+	rootCmd.AddCommand(newWortenSnapshotCmd(flags))
 	rootCmd.AddCommand(newVersionCliCmd())
 
 	return rootCmd

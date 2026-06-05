@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/spf13/cobra"
-	"worten-pp-cli/internal/store"
+	"github.com/emmassist-co/worten-pp-cli/internal/store"
 )
 
 func newWorkflowCmd(flags *rootFlags) *cobra.Command {

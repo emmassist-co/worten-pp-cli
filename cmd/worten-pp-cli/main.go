@@ -6,7 +6,7 @@ package main
 import (
 	"os"
 
-	"worten-pp-cli/internal/cli"
+	"github.com/emmassist-co/worten-pp-cli/internal/cli"
 )
 
 func main() {

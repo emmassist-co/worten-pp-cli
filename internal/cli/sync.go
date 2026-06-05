@@ -17,8 +17,8 @@ import (
 	"sync"
 	"sync/atomic"
 	"time"
-	"worten-pp-cli/internal/cliutil"
-	"worten-pp-cli/internal/store"
+	"github.com/emmassist-co/worten-pp-cli/internal/cliutil"
+	"github.com/emmassist-co/worten-pp-cli/internal/store"
 )
 
 // unresolvedPathKeyRE matches `{key}` placeholders left in a sync path

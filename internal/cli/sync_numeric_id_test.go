@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"worten-pp-cli/internal/store"
+	"github.com/emmassist-co/worten-pp-cli/internal/store"
 )
 
 func TestSyncSingleObject_PreservesLargeIntegerResourceIDs(t *testing.T) {

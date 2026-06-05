@@ -15,11 +15,11 @@ import (
 
 	mcplib "github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
-	"worten-pp-cli/internal/cli"
-	"worten-pp-cli/internal/client"
-	"worten-pp-cli/internal/config"
-	"worten-pp-cli/internal/mcp/cobratree"
-	"worten-pp-cli/internal/store"
+	"github.com/emmassist-co/worten-pp-cli/internal/cli"
+	"github.com/emmassist-co/worten-pp-cli/internal/client"
+	"github.com/emmassist-co/worten-pp-cli/internal/config"
+	"github.com/emmassist-co/worten-pp-cli/internal/mcp/cobratree"
+	"github.com/emmassist-co/worten-pp-cli/internal/store"
 )
 
 // RegisterTools registers all API operations as MCP tools.

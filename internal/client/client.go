@@ -21,8 +21,8 @@ import (
 	"sort"
 	"strings"
 	"time"
-	"worten-pp-cli/internal/cliutil"
-	"worten-pp-cli/internal/config"
+	"github.com/emmassist-co/worten-pp-cli/internal/cliutil"
+	"github.com/emmassist-co/worten-pp-cli/internal/config"
 )
 
 const BinaryResponseHeader = "X-Printing-Press-Binary-Response"
@@ -503,7 +503,7 @@ func (c *Client) doInternal(ctx context.Context, method, path string, params map
 			req.Header.Del(BinaryResponseHeader)
 		}
 		if req.Header.Get("User-Agent") == "" {
-			req.Header.Set("User-Agent", "worten-pp-cli/0.1.0")
+			req.Header.Set("User-Agent", "github.com/emmassist-co/worten-pp-cli/0.1.0")
 		}
 		// Go's net/http omits Accept by default; browsers, curl, and other
 		// stdlibs always send it. Fingerprint-checking WAFs (Imperva, Akamai,
