@@ -15,14 +15,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/emmassist-co/worten-pp-cli/internal/client"
+	"worten-pp-cli/internal/client"
 )
 
 const baseURL = "https://www.worten.pt"
 
 var (
-	uuidPattern = regexp.MustCompile(`(?i)^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$`)
-	gtinPattern = regexp.MustCompile(`"gtin13":"([0-9a-f-]{36})"`)
+	uuidPattern    = regexp.MustCompile(`(?i)^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$`)
+	gtinPattern    = regexp.MustCompile(`"gtin13":"([0-9a-f-]{36})"`)
 	detailsPattern = regexp.MustCompile(`/worten-api/products/details",\{"query":\{"id":\["([^"]+)"\],"ref":"product_id"\}\}`)
 )
 
@@ -53,12 +53,12 @@ type ResolveOutput struct {
 }
 
 type Snapshot struct {
-	CapturedAt  string         `json:"capturedAt"`
-	SourceInput string         `json:"sourceInput"`
-	Product     map[string]any `json:"product"`
-	Buyer       map[string]any `json:"buyer"`
-	Specs       map[string]any `json:"specs"`
-	SnapshotPath string        `json:"snapshotPath,omitempty"`
+	CapturedAt   string         `json:"capturedAt"`
+	SourceInput  string         `json:"sourceInput"`
+	Product      map[string]any `json:"product"`
+	Buyer        map[string]any `json:"buyer"`
+	Specs        map[string]any `json:"specs"`
+	SnapshotPath string         `json:"snapshotPath,omitempty"`
 }
 
 type SnapshotOptions struct {
@@ -555,17 +555,17 @@ func summarizeSnapshot(snapshot Snapshot) map[string]any {
 		stock = snapshot.Product["stock"]
 	}
 	return map[string]any{
-		"capturedAt":    snapshot.CapturedAt,
-		"productId":     snapshot.Product["productId"],
-		"sku":           snapshot.Product["sku"],
-		"name":          snapshot.Product["name"],
-		"brand":         snapshot.Product["brand"],
-		"category":      snapshot.Buyer["category"],
-		"soldByWorten":  snapshot.Buyer["soldByWorten"],
-		"price":         snapshot.Buyer["price"],
-		"inStock":       snapshot.Buyer["inStock"],
-		"stock":         stock,
-		"snapshotPath":  snapshot.SnapshotPath,
+		"capturedAt":   snapshot.CapturedAt,
+		"productId":    snapshot.Product["productId"],
+		"sku":          snapshot.Product["sku"],
+		"name":         snapshot.Product["name"],
+		"brand":        snapshot.Product["brand"],
+		"category":     snapshot.Buyer["category"],
+		"soldByWorten": snapshot.Buyer["soldByWorten"],
+		"price":        snapshot.Buyer["price"],
+		"inStock":      snapshot.Buyer["inStock"],
+		"stock":        stock,
+		"snapshotPath": snapshot.SnapshotPath,
 	}
 }
 
@@ -754,12 +754,12 @@ func normalizeStock(response, offer, seller, storeSearchResponse map[string]any)
 			"name":         sellerName,
 			"soldByWorten": soldByWorten,
 		},
-		"shipping": shippingSummary(shipping),
-		"localArea": localArea,
+		"shipping":    shippingSummary(shipping),
+		"localArea":   localArea,
 		"storeSearch": storeSearch,
 		"signals": map[string]any{
-			"storePickupUiEnabled": deepGet(response, "features", "show_free_delivery_installation_pickup"),
-			"storePricingAvailable": storePricingData != nil,
+			"storePickupUiEnabled":      deepGet(response, "features", "show_free_delivery_installation_pickup"),
+			"storePricingAvailable":     storePricingData != nil,
 			"postalCodeLookupAvailable": storeSearchResponse != nil,
 		},
 		"notes": notes,
@@ -807,13 +807,13 @@ func normalizeOfferStoreSearch(response map[string]any) map[string]any {
 		notes = append(notes, "Nearby stores were found, but none reported pickup stock for this offer.")
 	}
 	return map[string]any{
-		"code":               response["code"],
-		"resolvedLocation":   maybeLocation(response["latitude"], response["longitude"]),
-		"storeCount":         len(stores),
+		"code":                response["code"],
+		"resolvedLocation":    maybeLocation(response["latitude"], response["longitude"]),
+		"storeCount":          len(stores),
 		"availableStoreCount": availableStoreCount,
-		"stores":             stores,
-		"nearLisbon":         detectLisbonArea(values),
-		"notes":              notes,
+		"stores":              stores,
+		"nearLisbon":          detectLisbonArea(values),
+		"notes":               notes,
 	}
 }
 
@@ -828,19 +828,19 @@ func normalizeOfferStoreEntry(entry map[string]any) map[string]any {
 		features = defaultStringSlice(entry["features"])
 	}
 	return map[string]any{
-		"id":              firstNonEmpty(toString(store["id"]), toString(deepGet(store, "_meta", "store_id"))),
-		"name":            store["name"],
-		"city":            deepGet(store, "address", "city"),
-		"postalCode":      deepGet(store, "address", "postalCode"),
-		"address":         deepGet(store, "address", "address"),
-		"distanceKm":      roundNumber(toFloat(store["distance"]), 2),
-		"status":          status,
-		"hasStock":        hasStockStatus(status),
-		"features":        features,
+		"id":               firstNonEmpty(toString(store["id"]), toString(deepGet(store, "_meta", "store_id"))),
+		"name":             store["name"],
+		"city":             deepGet(store, "address", "city"),
+		"postalCode":       deepGet(store, "address", "postalCode"),
+		"address":          deepGet(store, "address", "address"),
+		"distanceKm":       roundNumber(toFloat(store["distance"]), 2),
+		"status":           status,
+		"hasStock":         hasStockStatus(status),
+		"features":         features,
 		"hasExpressPickup": slices.Contains(features, "PIS_EXPRESS"),
-		"hasPickup":       slices.Contains(features, "PIS"),
-		"nearLisbon":      detectLisbonArea([]string{toString(store["name"]), toString(deepGet(store, "address", "city")), toString(deepGet(store, "address", "district"))}),
-		"url":             prefixURL(toString(store["URL"])),
+		"hasPickup":        slices.Contains(features, "PIS"),
+		"nearLisbon":       detectLisbonArea([]string{toString(store["name"]), toString(deepGet(store, "address", "city")), toString(deepGet(store, "address", "district"))}),
+		"url":              prefixURL(toString(store["URL"])),
 	}
 }
 
@@ -902,16 +902,16 @@ func normalizeSearchHits(hits []map[string]any) []map[string]any {
 				}
 				return "product"
 			}(),
-			"id":              product["id"],
-			"sku":             product["sku"],
-			"name":            product["name"],
-			"url":             prefixURL(toString(product["url"])),
-			"price":           price,
-			"inStock":         firstNonNil(winningOffer["isInStock"], product["isInStock"], deepGet(hit, "data", "is_in_stock")),
-			"seller":          firstNonEmpty(toString(seller["name"]), toString(deepGet(hit, "data", "seller_uid"))),
-			"sellerCategory":  winningOffer["sellerCategory"],
-			"soldByWorten":    toString(winningOffer["sellerCategory"]) == "FIRST_PARTY" || toString(seller["name"]) == "Worten",
-			"categories":      normalizeCategoryIDs(getSlice(product, "categories")),
+			"id":             product["id"],
+			"sku":            product["sku"],
+			"name":           product["name"],
+			"url":            prefixURL(toString(product["url"])),
+			"price":          price,
+			"inStock":        firstNonNil(winningOffer["isInStock"], product["isInStock"], deepGet(hit, "data", "is_in_stock")),
+			"seller":         firstNonEmpty(toString(seller["name"]), toString(deepGet(hit, "data", "seller_uid"))),
+			"sellerCategory": winningOffer["sellerCategory"],
+			"soldByWorten":   toString(winningOffer["sellerCategory"]) == "FIRST_PARTY" || toString(seller["name"]) == "Worten",
+			"categories":     normalizeCategoryIDs(getSlice(product, "categories")),
 		})
 	}
 	return rows
@@ -929,29 +929,29 @@ func normalizeBuyerView(detailsResponse, specsResponse map[string]any) (map[stri
 	annualEnergyKwh, energyPer100CyclesKwh, warnings := extractEnergyMetrics(specMap, category)
 
 	base := map[string]any{
-		"category":            category,
-		"productId":           product["productId"],
-		"sku":                 product["sku"],
-		"name":                product["name"],
-		"brand":               product["brand"],
-		"model":               specMap["referencias.modelo"],
-		"url":                 product["url"],
-		"soldByWorten":        product["soldByWorten"],
-		"price":               deepGet(product, "price", "final"),
-		"listPrice":           deepGet(product, "price", "original"),
-		"inStock":             product["inStock"],
-		"stock":               product["stock"],
-		"energyClass":         firstNonNil(product["energyClass"], specMap["eficiencia energetica.eficiencia energetica nova"], specMap["caracteristicas especificas.eficiencia energetica"]),
-		"annualEnergyKwh":     annualEnergyKwh,
+		"category":              category,
+		"productId":             product["productId"],
+		"sku":                   product["sku"],
+		"name":                  product["name"],
+		"brand":                 product["brand"],
+		"model":                 specMap["referencias.modelo"],
+		"url":                   product["url"],
+		"soldByWorten":          product["soldByWorten"],
+		"price":                 deepGet(product, "price", "final"),
+		"listPrice":             deepGet(product, "price", "original"),
+		"inStock":               product["inStock"],
+		"stock":                 product["stock"],
+		"energyClass":           firstNonNil(product["energyClass"], specMap["eficiencia energetica.eficiencia energetica nova"], specMap["caracteristicas especificas.eficiencia energetica"]),
+		"annualEnergyKwh":       annualEnergyKwh,
 		"energyPer100CyclesKwh": energyPer100CyclesKwh,
-		"specWarnings":        warnings,
-		"ratings":             product["ratings"],
+		"specWarnings":          warnings,
+		"ratings":               product["ratings"],
 		"dimensionsCm": map[string]any{
 			"height": firstNonNil(parseNumber(specMap["caracteristicas fisicas.altura"]), valueAt(combinedDimensions, "height")),
 			"width":  firstNonNil(parseNumber(specMap["caracteristicas fisicas.largura"]), valueAt(combinedDimensions, "width")),
 			"depth":  firstNonNil(parseNumber(specMap["caracteristicas fisicas.profundidade"]), valueAt(combinedDimensions, "depth")),
 		},
-		"lifecycle":      lifecycle,
+		"lifecycle":       lifecycle,
 		"rawSpecSections": extractSectionTitles(specsResponse),
 	}
 

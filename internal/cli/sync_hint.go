@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/spf13/cobra"
-	"github.com/emmassist-co/worten-pp-cli/internal/store"
+	"worten-pp-cli/internal/store"
 )
 
 type syncHintState struct {

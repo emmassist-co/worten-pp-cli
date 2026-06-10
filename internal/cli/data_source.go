@@ -17,8 +17,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/emmassist-co/worten-pp-cli/internal/client"
-	"github.com/emmassist-co/worten-pp-cli/internal/store"
+	"worten-pp-cli/internal/client"
+	"worten-pp-cli/internal/store"
 )
 
 const networkFallbackReason = "api_unreachable"

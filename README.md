@@ -14,10 +14,12 @@ Install from the Printing Press library:
 npx -y @mvanhorn/printing-press-library install worten --cli-only
 ```
 
-Source install fallback:
+Source build fallback:
 
 ```bash
-go install github.com/emmassist-co/worten-pp-cli/cmd/worten-pp-cli@latest
+git clone https://github.com/emmassist-co/worten-pp-cli.git
+cd worten-pp-cli
+go install ./cmd/worten-pp-cli
 ```
 
 For `housebuy`, either keep `worten-pp-cli` on `PATH` or point the workflow wrapper at it directly:

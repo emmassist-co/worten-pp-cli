@@ -12,7 +12,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/emmassist-co/worten-pp-cli/internal/config"
+	"worten-pp-cli/internal/config"
 )
 
 // recordingRoundTripper counts how many times its RoundTrip method is

@@ -13,8 +13,8 @@ import (
 	"time"
 
 	"github.com/spf13/cobra"
-	"github.com/emmassist-co/worten-pp-cli/internal/client"
-	"github.com/emmassist-co/worten-pp-cli/internal/config"
+	"worten-pp-cli/internal/client"
+	"worten-pp-cli/internal/config"
 )
 
 var version = "1.0.0"

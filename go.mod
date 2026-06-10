@@ -1,4 +1,4 @@
-module github.com/emmassist-co/worten-pp-cli
+module worten-pp-cli
 
 go 1.26.4
 

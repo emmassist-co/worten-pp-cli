@@ -10,7 +10,7 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-	"github.com/emmassist-co/worten-pp-cli/internal/cliutil"
+	"worten-pp-cli/internal/cliutil"
 )
 
 func newWortenApiSearchProductsCmd(flags *rootFlags) *cobra.Command {
