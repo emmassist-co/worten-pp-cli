@@ -22,5 +22,27 @@
   "mcp_public_tool_count": 5,
   "mcp_ready": "full",
   "api_version": "0.1.0",
-  "auth_type": "none"
+  "auth_type": "none",
+  "novel_features": [
+    {
+      "name": "Canonical product resolution",
+      "command": "resolve",
+      "description": "Resolve a Worten product URL slug or UUID to the canonical product identifier the other commands use."
+    },
+    {
+      "name": "Normalized buyer view",
+      "command": "buyer",
+      "description": "Return a stable retailer-normalized buyer view instead of raw storefront payloads so downstream tooling can compare products consistently."
+    },
+    {
+      "name": "Persistent product snapshots",
+      "command": "snapshot",
+      "description": "Capture and reuse normalized product snapshots on disk so agents can refresh or inspect prior product state without rebuilding the view by hand."
+    },
+    {
+      "name": "Normalized stock context",
+      "command": "stock",
+      "description": "Combine product, seller, shipping, and optional nearby-store stock context behind one command instead of stitching endpoint calls manually."
+    }
+  ]
 }

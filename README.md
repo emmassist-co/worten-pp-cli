@@ -8,7 +8,13 @@ Created by [@asantos00](https://github.com/asantos00) (Alexandre Santos).
 
 ## Install
 
-Install from source today:
+Install from the Printing Press library:
+
+```bash
+npx -y @mvanhorn/printing-press-library install worten --cli-only
+```
+
+Source install fallback:
 
 ```bash
 go install github.com/emmassist-co/worten-pp-cli/cmd/worten-pp-cli@latest
@@ -55,10 +61,10 @@ This checks the base configuration and connectivity assumptions.
 ### 2. Try the normalized commands
 
 ```bash
-worten-pp-cli resolve https://www.worten.pt/produtos/example
-worten-pp-cli product https://www.worten.pt/produtos/example
-worten-pp-cli buyer https://www.worten.pt/produtos/example
-worten-pp-cli snapshot https://www.worten.pt/produtos/example --refresh
+worten-pp-cli resolve 11111111-1111-1111-1111-111111111111
+worten-pp-cli product 11111111-1111-1111-1111-111111111111
+worten-pp-cli buyer 11111111-1111-1111-1111-111111111111
+worten-pp-cli snapshot 11111111-1111-1111-1111-111111111111 --refresh
 ```
 
 ## Usage
