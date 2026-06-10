@@ -14,10 +14,10 @@ import (
 	"time"
 
 	"github.com/spf13/cobra"
-	"github.com/emmassist-co/worten-pp-cli/internal/client"
-	"github.com/emmassist-co/worten-pp-cli/internal/cliutil"
-	"github.com/emmassist-co/worten-pp-cli/internal/config"
-	"github.com/emmassist-co/worten-pp-cli/internal/store"
+	"worten-pp-cli/internal/client"
+	"worten-pp-cli/internal/cliutil"
+	"worten-pp-cli/internal/config"
+	"worten-pp-cli/internal/store"
 )
 
 // looksLikeDoctorInterstitial reports whether the response body matches a known

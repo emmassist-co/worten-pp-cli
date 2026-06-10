@@ -21,8 +21,8 @@ import (
 	"sort"
 	"strings"
 	"time"
-	"github.com/emmassist-co/worten-pp-cli/internal/cliutil"
-	"github.com/emmassist-co/worten-pp-cli/internal/config"
+	"worten-pp-cli/internal/cliutil"
+	"worten-pp-cli/internal/config"
 )
 
 const BinaryResponseHeader = "X-Printing-Press-Binary-Response"

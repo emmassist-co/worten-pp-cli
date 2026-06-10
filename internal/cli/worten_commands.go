@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/emmassist-co/worten-pp-cli/internal/worten"
+	"worten-pp-cli/internal/worten"
 )
 
 func newWortenResolveCmd(flags *rootFlags) *cobra.Command {

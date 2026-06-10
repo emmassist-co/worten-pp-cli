@@ -20,7 +20,7 @@ import (
 	"text/tabwriter"
 	"time"
 	"unicode"
-	"github.com/emmassist-co/worten-pp-cli/internal/client"
+	"worten-pp-cli/internal/client"
 )
 
 var As = errors.As
